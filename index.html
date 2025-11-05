@@ -1,0 +1,294 @@
+
+  <!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel='stylesheet' href='https://unpkg.com/plyr@3/dist/plyr.css'><link rel="stylesheet" href="./style.css">
+  <title>IPTV MAS</title>
+  <!DOCTYPE html>
+<html lang="th">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>IPTV</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <style>
+ 
+     {
+    margin: 0;
+    padding: 0;
+    background: black;
+    height: 100%;
+    overflow: hidden;
+  }
+  video {
+    width: 100%;
+    height: 40%;
+    object-fit: cover; /* ครอบคลุมเต็มจอ */
+  }
+  
+         #videoContainer {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
+            background: black;
+        }
+        
+        video {
+            width: 850px;
+            height: auto;
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        .button {
+            cursor: pointer;
+            padding: 5px 10px;
+            border: none;
+            background: #444;
+            color: red;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background: #555;
+        }
+  
+        
+    body {
+      background-color: #000;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2em;
+      color: #00aaff;
+    }
+
+    
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      background-color: #222;
+      color: white;
+      border: 1px solid #00aaff;
+      border-radius: 5px;
+    }
+  </style>
+  
+     <font color="blue">
+
+ <text color="whitegreen">
+    <input type="text" id="videoInput" placeholder="กรอก URL ของไฟล์ .m3u8 ที่นี่" />
+    <button id="loadPlayer">โหลดวีดีโอ</button>
+<button onclick="toggleFullScreen()">เต็มจอ / ย่อจอ</button>
+    </text>
+    <div class="controls">
+        <button class="button" id="stretch">Stretch</button>
+        <button class="button" id="crop">Crop</button>
+        <button class="button" id="zoom">Zoom</button>
+        <button class="button" id="fullscreen">Fullscreen</button>
+    </div>
+</div>
+          
+         
+          
+          
+
+  
+</head>
+<body>
+  <h1>IPTV MAS</h1>
+<select id="ช่องรายการ">
+    <option value="https://udn-streamer1.cdn.3bbtv.com:8443/3bb/live/32/32.mpd">ไทยรัฐ ทีวี</option>
+    <option value="https://monomax-uiripn.cdn.byteark.com/plain/th/1080p/index.m3u8">โมโน29</option>
+    <option value="https://lb1-live-mv.v2h-cdn.com/hls/ffcb/gbinrvp/gbinrvp.m3u8">เวิร์คพ้อยท์</option>
+     <option value="https://lb1-live-mv.v2h-cdn.com/hls/ffca/mifainp/mifainp.m3u8">true24 ทีวี</option>
+    <option value="https://bcovlive-a.akamaihd.net/b6603a14ea59440a95e9235e14bc9332/ap-southeast-1/6415628290001/9c3d7fc7d10840a69e48b5939ae886e0/playlist_ssaiM.m3u8">ONE31</option>
+    <option value="https://lb1-live-mv.v2h-cdn.com/hls/ffad/vibomi/vibomi.m3u8">Amarin</option>
+     <option value="https://load1.v2h-cdn.com/RE_freetv/7HD.stream_720p/playlist.m3u8">CH7 ทีวี</option>
+    <option value="https://load1.v2h-cdn.com/digitaltv/ch3/playlist.m3u8">3HD</option>
+    <option value="https://load1.v2h-cdn.com/RE_freetv/NEW.stream_720p/playlist.m3u8">JKN18</option>
+</select>
+
+<div class="container"></div>
+<video controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png" id="video"></video>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('#video');
+    const selector = document.getElementById('ช่องรายการ');
+    const player = new Plyr(video, { captions: { active: true, update: true, language: 'th' } });
+
+    function playChannel(url) {
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+        } else {
+            alert('Tu navegador no soporta reproducción HLS.');
+        }
+        video.play(); // เริ่มเล่นวิดีโอเมื่อเลือกช่องรายการ
+    }
+
+    // เริ่มเล่นช่องรายการแรกทันทีเมื่อโหลดหน้า
+    playChannel(selector.value);
+    
+    // เปลี่ยนช่องรายการเมื่อมีการเลือก
+    selector.addEventListener('change', (event) => {
+        playChannel(event.target.value);
+    });
+});
+</script>
+  
+    <script>
+    const videoPlayer = document.getElementById('video');
+    const loadVideoBtn = document.getElementById('loadPlayer');
+    const videoInput = document.getElementById('videoInput');
+    const fullscreenBtn = document.getElementById('fullscreen');
+    
+    loadPlayer.addEventListener('click', () => {
+        const videoURL = videoInput.value;
+        if (videoURL) {
+            videoPlayer.src = videoURL; 
+            videoPlayer.play(); 
+        } else {
+            alert('กรุณากรอก URL ของวีดีโอ');
+        }
+    });
+    
+    fullscreenBtn.addEventListener('click', () => {
+        if (videoPlayer.requestFullscreen) {
+            videoPlayer.requestFullscreen();
+        } else if (videoPlayer.webkitRequestFullscreen) {
+            videoPlayer.webkitRequestFullscreen();
+        } else if (videoPlayer.msRequestFullscreen) {
+            videoPlayer.msRequestFullscreen();
+        }
+    });
+
+    const stretchBtn = document.getElementById('stretch');
+    const cropBtn = document.getElementById('crop');
+    const zoomBtn = document.getElementById('zoom');
+    
+    stretchBtn.addEventListener('click', () => {
+        videoPlayer.style.objectFit = 'fill'; // Stretch
+    });
+
+    cropBtn.addEventListener('click', () => {
+        videoPlayer.style.objectFit = 'cover'; // Crop
+    });
+
+    zoomBtn.addEventListener('click', () => {
+        if (videoPlayer.style.objectFit === 'none') {
+            videoPlayer.style.objectFit = 'contain'; // Zoom
+        } else {
+            videoPlayer.style.objectFit = 'none'; // Reset
+        }
+    });
+
+
+let isFullScreen = false;
+let initialDistance = null;
+let scale = 1;
+
+// ฟังก์ชันสำหรับเข้าสู่/ออกจากเต็มจอ
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.getElementById('videoPlayer').requestFullscreen()
+      .then(() => {
+        isFullScreen = objectFit-contain;
+      });
+  } else {
+    document.exitFullscreen().then(() => {
+      isFullScreen = false;
+      // รีเซ็ตการซูมเมื่อออกจากเต็มจอ
+      scale = 1;
+      video.style.transform = `scale(${scale})`;
+    });
+  }
+}
+
+// เชื่อมต่อ Event สำหรับ Touch
+video.addEventListener('touchstart', handleTouchStart, {passive: false});
+video.addEventListener('touchmove', handleTouchMove, {passive: false});
+video.addEventListener('touchend', handleTouchEnd);
+
+let lastDistance = 0;
+
+function getDistance(touches) {
+  const [touch1, touch2] = touches;
+  const dx = touch2.clientX - touch1.clientX;
+  const dy = touch2.clientY - touch1.clientY;
+  return Math.hypot(dx, dy);
+}
+
+function handleTouchStart(e) {
+  if (e.touches.length === 2) {
+    // เริ่มต้นจับการซูม
+    initialDistance = getDistance(e.touches);
+    lastDistance = initialDistance;
+  }
+}
+
+function handleTouchMove(e) {
+  if (e.touches.length === 2) {
+    e.preventDefault(); // ป้องกันการเลื่อนหน้า
+    const currentDistance = getDistance(e.touches);
+    const delta = currentDistance - lastDistance;
+    lastDistance = currentDistance;
+
+    // คำนวณ scale จาก delta
+    const zoomFactor = 0.005; // ปรับความเร็วซูมได้ตามต้องการ
+    scale += delta * zoomFactor;
+
+    // จำกัด scale ให้อยู่ในช่วงที่ต้องการ
+    if (scale < 0.5) scale = 0.5;
+    if (scale > 3) scale = 3;
+
+    // ปรับ scale ของวิดีโอ
+    video.style.transform = `scale(${scale})`;
+  }
+}
+
+function handleTouchEnd(e) {
+  if (e.touches.length < 2) {
+    initialDistance = null;
+  }
+}
+</script>
+
+<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+<script src='https://unpkg.com/plyr@3'></script><script  src="./script.js"></script>
+  
+</body>
+</html>
+
+  </body>
+  
+</html>
