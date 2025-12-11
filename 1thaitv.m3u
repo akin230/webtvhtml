@@ -1,4 +1,4 @@
-#EXTM3U url=""
+#EXTM3U url="https://raw.githubusercontent.com/akin230/webtvhtml/refs/heads/main/1thaitv.m3u"
 
 #EXTINF:-1 tvg-id="Channel3.th" group-title="🇹🇭 THAILAND" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d3/Ch3HDLogo.png", CH3 HD
 http://portal.geniptv.com:8080//live/dmtndmtnkimo/a7GPMeArdf/9375.m3u8
