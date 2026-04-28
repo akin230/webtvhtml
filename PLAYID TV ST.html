@@ -1,0 +1,454 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLAYID TV - All-in-One Entertainment</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script><style id="sb_cln_style">ins[class*="adsbygoogle"],ins[class*="adsbyadop"]{display:none !important;}</style>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    body { font-family: 'Kanit', sans-serif; background-color: #0f1115; color: #e5e7eb; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f1115; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    
+    .nav-link { @apply flex flex-col items-center justify-center px-4 py-2 text-gray-400 transition-all duration-300 border-b-2 border-transparent; }
+    .nav-link.active { @apply text-[#00CAFF] border-[#00CAFF] bg-[#00CAFF]/5; }
+    
+    .league-header { background: linear-gradient(90deg, #1d232c 0%, #161b22 100%); color: #00CAFF; font-size: 0.85rem; }
+    .match-row { transition: all 0.2s; border-bottom: 1px solid #1f2937; }
+    .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+    .status-live { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+    
+    .content-card { @apply bg-[#161b22] rounded-xl overflow-hidden border border-gray-800 transition-transform duration-300 hover:scale-105 hover:border-[#00CAFF]/50; }
+  </style>
+  <style>
+  /* ปรับให้ nav-btn รองรับแท็ก <a> */
+  .nav-btn { 
+    @apply flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-4 py-2 text-gray-400 transition-all duration-300 border-b-2 border-transparent text-xs md:text-sm font-medium;
+    text-decoration: none; /* เอาเส้นใต้ลิงก์ออก */
+  }
+  
+  .nav-btn:hover {
+    @apply text-[#00CAFF];
+  }
+
+  .nav-btn.active { 
+    @apply text-[#00CAFF] border-[#00CAFF] bg-[#00CAFF]/5; 
+  }
+</style>
+
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.sticky{position:sticky}.top-0{top:0px}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.flex{display:flex}.grid{display:grid}.h-12{height:3rem}.h-2{height:0.5rem}.h-8{height:2rem}.w-2{width:0.5rem}.w-8{width:2rem}.max-w-7xl{max-width:80rem}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.rounded{border-radius:0.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.border-b{border-bottom-width:1px}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-zinc-700{--tw-border-opacity:1;border-color:rgb(63 63 70 / var(--tw-border-opacity, 1))}.bg-\[\#00CAFF\]{--tw-bg-opacity:1;background-color:rgb(0 202 255 / var(--tw-bg-opacity, 1))}.bg-\[\#161b22\]\/90{background-color:rgb(22 27 34 / 0.9)}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-zinc-800{--tw-bg-opacity:1;background-color:rgb(39 39 42 / var(--tw-bg-opacity, 1))}.bg-zinc-900{--tw-bg-opacity:1;background-color:rgb(24 24 27 / var(--tw-bg-opacity, 1))}.object-contain{object-fit:contain}.p-3{padding:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pb-2{padding-bottom:0.5rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.tracking-tighter{letter-spacing:-0.05em}.tracking-widest{letter-spacing:0.1em}.text-\[\#FF6833\]{--tw-text-opacity:1;color:rgb(255 104 51 / var(--tw-text-opacity, 1))}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[\#00CAFF\]\/20{--tw-shadow-color:rgb(0 202 255 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-zinc-700:hover{--tw-bg-opacity:1;background-color:rgb(63 63 70 / var(--tw-bg-opacity, 1))}@media (min-width: 640px){.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}@media (min-width: 768px){.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:gap-8{gap:2rem}}@media (min-width: 1024px){.lg\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}}</style></head>
+<body class="bg-zinc-900 text-white">
+
+<header class="sticky top-0 z-50 bg-[#161b22]/90 backdrop-blur-md border-b border-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-3">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-[#00CAFF] rounded flex items-center justify-center shadow-lg shadow-[#00CAFF]/20">
+          <i class="fas fa-play text-black text-sm"></i>
+        </div>
+        <h1 class="text-xl font-bold tracking-tighter text-white">PLAYID <span class="text-[#FF6833]">TV</span></h1>
+      </div>
+      <div id="update-status" class="text-[10px] text-gray-500 uppercase tracking-widest flex items-center gap-2">
+        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Online
+      </div>
+    </div>
+    
+    <nav class="flex justify-center gap-4">
+      
+<nav class="flex justify-center gap-2 md:gap-8">
+  <a href="https://www.scoremun.com" id="nav-ball" class="nav-btn">
+    <i class="fas fa-futbol"></i> <span>ฟุตบอลสด</span>
+  </a>
+
+  <a href="https://bronze-teodora-58.tiiny.site/index.html" id="nav-movie" class="nav-btn">
+    <i class="fas fa-film"></i> <span>หนัง/ซีรี่ย์</span>
+  </a>
+
+  <a href="https://turquoise-celestine-76.tiiny.site/index.html" id="nav-tv" class="nav-btn">
+    <i class="fas fa-tv"></i> <span>รายการทีวี</span>
+  </a>
+</nav>
+  </nav></div>
+</header>
+
+
+
+
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <h1 ควรสอดคล้องกับ="" seo="">
+    </h1><h1 class="text-2xl font-bold mb-6"></h1>
+
+          <h2 class="text-xl font-semibold mb-4 border-b border-zinc-700 pb-2">
+        ช่อง MAX Sports </h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https://www.livedoomovies.com:4431/Monomax_PL_1HD/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 1">
+            <div class="text-sm text-center">
+              MONOMAX 1            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://five22rd.com/monomax2/tracks-v1a1/mono.ts.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 2">
+            <div class="text-sm text-center">
+              MONOMAX 2            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://www.livedoomovies.com:4431/Monomax_PL_3HD/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 3">
+            <div class="text-sm text-center">
+              MONOMAX 3            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://www.livedoomovies.com:4431/Monomax_PL_4HD/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 4">
+            <div class="text-sm text-center">
+              MONOMAX 4            </div>
+          </a>
+         
+
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https%3A%2F%2Flove.jepad13947.workers.dev%2Flx-origin%2Fth-monomax05_720%2Fchunks.m3u8&amp;controls=auto&amp;theme=default&amp;buffer=30&amp;quality=1&amp;speed=1&amp;pip=1&amp;fullscreen=1&amp;no_download=1&amp;width=responsive&amp;aspect=16%3A9" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 5">
+            <div class="text-sm text-center">
+              MONOMAX 5          </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://love.jepad13947.workers.dev/lx-origin/th-monomax06bkp_720/chunks.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-6.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 6">
+            <div class="text-sm text-center">
+              MONOMAX 6         </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https://www.livedoomovies.com:4431/Monomax_PL_7HD/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 7">
+            <div class="text-sm text-center">
+              MONOMAX 7       </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://www.livedoomovies.com:4431/Monomax_PL_8HD/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/monomax-8.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONOMAX 8">
+            <div class="text-sm text-center">
+              MONOMAX 8         </div>
+          </a>
+          
+          </div>
+          
+          
+                    <h2 class="text-xl font-semibold mb-4 border-b border-zinc-700 pb-2">
+      ช่อง TRUE SPORTS  </h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=videojs&amp;url=https://five22rd.com/bein1th/tracks-v1a1/mono.ts.m3u8&amp;autoplay=1" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://image.thai-play.com/images/tv/0rp3HnvgY5kT0Ru9ImsRMRj5dodjYvYa1077.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN1">
+            <div class="text-sm text-center">
+              BEIN1  </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https://love.46wur1l2ob.workers.dev/vx-origin/epl-bein1_720/chunks.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://image.thai-play.com/images/tv/bein-sport-th-2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 2">
+                 	BEIN2<div class="text-sm text-center">
+                   </div>
+          </a>
+                   <a href="/https://www.livedoomovies.com:4431/02_epl2_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 1">
+            <div class="text-sm text-center">
+              BEIN 2            </div>
+          </a>
+          
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://m3u8proxy.playidlive.workers.dev/?url=https://cdn1.googlecdnforstreaming.live/live/bein2/chunks.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 2">
+            <div class="text-sm text-center">
+              BEIN 3            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://www.livedoomovies.com:4431/02_epl3_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 3">
+            <div class="text-sm text-center">
+              BEIN 3            </div>
+          </a>
+                  <a href="/tv/preview.html" "="" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 4">
+            <div class="text-sm text-center">
+              BEIN 4            </div>
+          </a>
+                  <a href="/tv/preview.html" "="" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 5">
+            <div class="text-sm text-center">
+              BEIN 5            </div>
+          </a>
+                  <a href="/tv/preview.html" "="" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein6.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 6">
+            <div class="text-sm text-center">
+              BEIN 6            </div>
+          </a>
+                  <a href="/tv/preview.html" "="" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/bein7.png" class="h-12 mb-2 object-contain" loading="lazy" alt="BEIN 7">
+            <div class="text-sm text-center">
+              BEIN 7            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://five22rd.com/truepremier3/tracks-v1a1/mono.ts.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truepremier3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Premier Football 3">
+            <div class="text-sm text-center">
+              True Premier Football 3            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://m3u8proxy.playidlive.workers.dev/?url=https://m3u8proxy.playidlive.workers.dev/?url=https://cdn1.googlecdnforstreaming.live/live/tpf4/chunks.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truepremier4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Premier Football 4">
+            <div class="text-sm text-center">
+              True Premier Football 4            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://m3u8proxy.playidlive.workers.dev/?url=https://cdn1.googlecdnforstreaming.live/live/tpf5/chunks.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truepremier5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Premier Football 5">
+            <div class="text-sm text-center">
+              True Premier Football 5            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https://www.livedoomovies.com:4431/SPOTV01_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/spotv1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPOTV 1">
+            <div class="text-sm text-center">
+              SPOTV 1            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https://www.livedoomovies.com:4431/SPOTV02_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/spotv2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPOTV 2">
+            <div class="text-sm text-center">
+              SPOTV 2            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https://www.livedoomovies.com:4431/02_GOLFHD_720p/playlist.m3u8" "="" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/golfchannel.png" class="h-12 mb-2 object-contain" loading="lazy" alt="Golf Channel Thailand">
+            <div class="text-sm text-center">
+              Golf Channel Thailand            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https%3A%2F%2Fm3u8proxy.playidlive.workers.dev%2F%3Furl%3Dhttps%3A%2F%2Fcdn1.googlecdnforstreaming.live%2Flive%2Ftsp1%2Fchunks.m3u8&amp;controls=auto&amp;theme=default&amp;logo=1&amp;logo_url=https%3A%2F%2Fplayid.hstn.me%2Fimg%2Fplayid.png&amp;logo_pos=top-right&amp;logo_opacity=0.7&amp;logo_width=60&amp;buffer=30&amp;quality=1&amp;speed=1&amp;pip=1&amp;fullscreen=1&amp;no_download=1&amp;width=responsive&amp;aspect=16%3A9&amp;seo_title=sports&amp;seo_description=Sports+TSP1&amp;og_image=https%3A%2F%2Fapi.cantstopwontstop.online%2Fimages%2Fpng%2Fhd-tsport1.png" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truesport1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Sports 1">
+            <div class="text-sm text-center">
+              True Sports 1            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https%3A%2F%2Fm3u8proxy.playidlive.workers.dev%2F%3Furl%3Dhttps%3A%2F%2Fcdn1.googlecdnforstreaming.live%2Flive%2Ftsp2%2Fchunks.m3u8&amp;controls=auto&amp;theme=default&amp;logo=1&amp;logo_url=https%3A%2F%2Fplayid.hstn.me%2Fimg%2Fplayid.png&amp;logo_pos=top-right&amp;logo_opacity=0.7&amp;logo_width=60&amp;buffer=30&amp;quality=1&amp;speed=1&amp;pip=1&amp;fullscreen=1&amp;no_download=1&amp;width=responsive&amp;aspect=16%3A9&amp;seo_title=sports&amp;seo_description=Sports+TSP2&amp;og_image=https%3A%2F%2Fapi.cantstopwontstop.online%2Fimages%2Fpng%2Fhd-tsport2.png&amp;poster=https%3A%2F%2Fapi.cantstopwontstop.online%2Fimages%2Fpng%2Fhd-tsport2.png" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truesport2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Sports 2">
+            <div class="text-sm text-center">
+              True Sports 2            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=jwplayer&amp;url=https%3A%2F%2Fm3u8proxy.playidlive.workers.dev%2F%3Furl%3Dhttps%3A%2F%2Fcdn1.googlecdnforstreaming.live%2Flive%2Ftsp3%2Fchunks.m3u8&amp;controls=auto&amp;theme=default&amp;logo=1&amp;logo_url=https%3A%2F%2Fplayid.hstn.me%2Fimg%2Fplayid.png&amp;logo_pos=top-right&amp;logo_opacity=0.7&amp;logo_width=60&amp;buffer=30&amp;quality=1&amp;speed=1&amp;pip=1&amp;fullscreen=1&amp;no_download=1&amp;width=responsive&amp;aspect=16%3A9&amp;seo_title=sports&amp;seo_description=Sports+TSP2&amp;og_image=https%3A%2F%2Fapi.cantstopwontstop.online%2Fimages%2Fpng%2Fhd-tsport2.png&amp;poster=https%3A%2F%2Fapi.cantstopwontstop.online%2Fimages%2Fpng%2Fhd-tsport3.png" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truesport3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Sports 3">
+            <div class="text-sm text-center">
+              True Sports 3            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://www.livedoomovies.com:4431/02_sport4_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truesport4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Sports 4">
+            <div class="text-sm text-center">
+              True Sports 4            </div>
+          </a>
+        <a href="watch.html?src=https://www.livedoomovies.com:4431/02_sport5_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truesport5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Sports 5">
+            <div class="text-sm text-center">
+              True Sports 5            </div>
+          </a>
+                  <a href="/tv/truesports7.html" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truesport7.png" class="h-12 mb-2 object-contain" loading="lazy" alt="True Sports 7">
+            <div class="text-sm text-center">
+              True Sports 7            </div>
+          </a>
+                  <a href="https://anym3u8player.com/ultimate-player-generator/player.php?player=clappr&amp;url=https://www.livedoomovies.com:4431/02_TennisHD_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/truetennis.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TRUE TENNIS">
+            <div class="text-sm text-center">
+              TRUE TENNIS            </div>
+          </a>
+              </div>
+          <h2 class="text-xl font-semibold mb-4 border-b border-zinc-700 pb-2">
+        ช่องกีฬาต่างประเทศ      </h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                  <a href="https://www.scoremun.com/tntsports1" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/tntsport1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TNT SPORTS 1">
+            <div class="text-sm text-center">
+              TNT SPORTS 1            </div>
+          </a>
+                  <a href="/tntsports2" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/tntsport2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TNT SPORTS 2">
+            <div class="text-sm text-center">
+              TNT SPORTS 2            </div>
+          </a>
+                  <a href="/tntsports3" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com8/channels-logo/tntsport3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TNT SPORTS 3">
+            <div class="text-sm text-center">
+              TNT SPORTS 3            </div>
+          </a>
+                  <a href="/tntsports4" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/tntsport4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TNT SPORTS 4">
+            <div class="text-sm text-center">
+              TNT SPORTS 4            </div>
+          </a>
+                  <a href="/tntsports5" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/tntsport5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TNT SPORTS 5">
+            <div class="text-sm text-center">
+              TNT SPORTS 5            </div>
+          </a>
+                  <a href="/sporttv1" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/sporttv1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPORT TV 1">
+            <div class="text-sm text-center">
+              SPORT TV 1            </div>
+          </a>
+                  <a href="/sporttv2" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/sporttv2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPORT TV 2">
+            <div class="text-sm text-center">
+              SPORT TV 2            </div>
+          </a>
+                  <a href="/sporttv3" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/sporttv3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPORT TV 3">
+            <div class="text-sm text-center">
+              SPORT TV 3            </div>
+          </a>
+                  <a href="/sporttv4" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/sporttv4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPORT TV 4">
+            <div class="text-sm text-center">
+              SPORT TV 4            </div>
+          </a>
+                  <a href="/sporttv5" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/sporttv5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="SPORT TV 5">
+            <div class="text-sm text-center">
+              SPORT TV 5            </div>
+          </a>
+                  <a href="/digisport1" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/digisport1.png" class="h-12 mb-2 object-contain" loading="lazy" alt="DIGI SPORT 1">
+            <div class="text-sm text-center">
+              DIGI SPORT 1            </div>
+          </a>
+                  <a href="/digisport2" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/digisport2.png" class="h-12 mb-2 object-contain" loading="lazy" alt="DIGI SPORT 2">
+            <div class="text-sm text-center">
+              DIGI SPORT 2            </div>
+          </a>
+                  <a href="/digisport3" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/digisport3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="DIGI SPORT 3">
+            <div class="text-sm text-center">
+              DIGI SPORT 3            </div>
+          </a>
+                  <a href="/digisport4" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/digisport4.png" class="h-12 mb-2 object-contain" loading="lazy" alt="DIGI SPORT 4">
+            <div class="text-sm text-center">
+              DIGI SPORT 4            </div>
+          </a>
+                  <a href="/mutv" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/mutv.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MUTV">
+            <div class="text-sm text-center">
+              MUTV            </div>
+          </a>
+                  <a href="/lfctv" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/lfctv.png" class="h-12 mb-2 object-contain" loading="lazy" alt="LFC TV">
+            <div class="text-sm text-center">
+              LFC TV            </div>
+          </a>
+              </div>
+              
+                        <h2 class="text-xl font-semibold mb-4 border-b border-zinc-700 pb-2">
+        ช่องดิจิตอลทีวี      </h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                  <a href="https://www.livedoomovies.com:4431/02_TennisHD_720p/playlist.m3u8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/ch3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="3 HD">
+            <div class="text-sm text-center">
+              TRUE SCI           </div>
+          </a>
+                  <a href="/5hd" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/ch5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="5 HD">
+            <div class="text-sm text-center">
+              5 HD            </div>
+          </a>
+                 </div>
+              
+          <h2 class="text-xl font-semibold mb-4 border-b border-zinc-700 pb-2">
+        ช่องดิจิตอลทีวี      </h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+                  <a href="/3hd" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/ch3.png" class="h-12 mb-2 object-contain" loading="lazy" alt="3 HD">
+            <div class="text-sm text-center">
+              3 HD            </div>
+          </a>
+                  <a href="/5hd" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/ch5.png" class="h-12 mb-2 object-contain" loading="lazy" alt="5 HD">
+            <div class="text-sm text-center">
+              5 HD            </div>
+          </a>
+                  <a href="/7hd" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/7hd.png" class="h-12 mb-2 object-contain" loading="lazy" alt="7 HD">
+            <div class="text-sm text-center">
+              7 HD            </div>
+          </a>
+                  <a href="/mcot" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/mcot.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MCOT HD">
+            <div class="text-sm text-center">
+              MCOT HD            </div>
+          </a>
+                  <a href="/nbt" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/nbt.png" class="h-12 mb-2 object-contain" loading="lazy" alt="NBT">
+            <div class="text-sm text-center">
+              NBT            </div>
+          </a>
+                  <a href="/thaipbs" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/thaipbs.png" class="h-12 mb-2 object-contain" loading="lazy" alt="THAI PBS">
+            <div class="text-sm text-center">
+              THAI PBS            </div>
+          </a>
+                  <a href="/pptv" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/pptv.png" class="h-12 mb-2 object-contain" loading="lazy" alt="PPTV">
+            <div class="text-sm text-center">
+              PPTV            </div>
+          </a>
+                  <a href="/amarin" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/amarin.png" class="h-12 mb-2 object-contain" loading="lazy" alt="AMARIN TV">
+            <div class="text-sm text-center">
+              AMARIN TV            </div>
+          </a>
+                  <a href="/ch8" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/ch8.png" class="h-12 mb-2 object-contain" loading="lazy" alt="CH 8">
+            <div class="text-sm text-center">
+              CH 8            </div>
+          </a>
+                  <a href="/gmm25" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/gmm25.png" class="h-12 mb-2 object-contain" loading="lazy" alt="gmm25">
+            <div class="text-sm text-center">
+              gmm25            </div>
+          </a>
+                  <a href="/mono29" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/mono29.png" class="h-12 mb-2 object-contain" loading="lazy" alt="MONO 29">
+            <div class="text-sm text-center">
+              MONO 29            </div>
+          </a>
+                  <a href="/nation" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/nation.png" class="h-12 mb-2 object-contain" loading="lazy" alt="NATION">
+            <div class="text-sm text-center">
+              NATION            </div>
+          </a>
+                  <a href="/one31" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/one31.png" class="h-12 mb-2 object-contain" loading="lazy" alt="ONE 31">
+            <div class="text-sm text-center">
+              ONE 31            </div>
+          </a>
+                  <a href="/thairathtv" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/thairath.png" class="h-12 mb-2 object-contain" loading="lazy" alt="THAIRATH TV">
+            <div class="text-sm text-center">
+              THAIRATH TV            </div>
+          </a>
+                  <a href="/tnn16" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/tnn.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TNN 16">
+            <div class="text-sm text-center">
+              TNN 16            </div>
+          </a>
+                  <a href="/workpoint" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/workpoint.png" class="h-12 mb-2 object-contain" loading="lazy" alt="WORKPOINT">
+            <div class="text-sm text-center">
+              WORKPOINT            </div>
+          </a>
+                  <a href="/true4u" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/true4u.png" class="h-12 mb-2 object-contain" loading="lazy" alt="TRUE4U">
+            <div class="text-sm text-center">
+              TRUE4U            </div>
+          </a>
+                  <a href="/tsports7" class="bg-zinc-800 hover:bg-zinc-700 rounded-lg p-3 flex flex-col items-center transition">
+            <img src="https://www.scoremun.com/channels-logo/tsport.png" class="h-12 mb-2 object-contain" loading="lazy" alt="T SPORTS 7">
+            <div class="text-sm text-center">
+              T SPORTS 7            </div>
+          </a>
+              </div>
+      </div>
+
+
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3c477598c0724daf97021c8d1846cd7c&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body>
